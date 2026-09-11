@@ -35,6 +35,21 @@ Android and iOS are the primary targets. The repository also contains Flutter-ge
 - macOS with Xcode and CocoaPods for iOS builds
 - Network access to YouTube endpoints
 
+## Quick Start Android
+
+- Download project to a folder
+- Open it as flutter-project in Android-Studio
+- Build to your phone
+
+## Quick Start iOS
+
+- Download project to a folder
+- Open it as flutter-project in Android-Studio (for iOS)
+- Use the terminal to go to the 'ios directory' of the project
+- Run flutter clean; flutter pub get; flutter pub upgrade; pod install;
+- Open 'Runner.xcworkspace' in XCode
+- Build to your phone
+
 ## Run locally
 
 ```bash
