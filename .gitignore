@@ -1,0 +1,88 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+Thumbs.db
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+*.p12
+*.p8
+*.pem
+*.key
+*.mobileprovision
+*.cer
+**/key.properties
+**/local.properties
+
+# Platform-generated dependency and build state
+/android/.gradle/
+/android/.kotlin/
+/android/**/.cxx/
+/ios/Pods/
+/ios/.symlinks/
+/ios/Flutter/Generated.xcconfig
+/ios/Flutter/flutter_export_environment.sh
+/ios/Flutter/ephemeral/
+/macos/Pods/
+/macos/.symlinks/
+/macos/Flutter/ephemeral/
+/linux/flutter/ephemeral/
+/windows/flutter/ephemeral/
+
+# Local engineering history and recovery notes. These files intentionally stay
+# on the development machine but are not part of the public repository.
+/IDEEN_MINDMAP.md
+/IOS_HLS_PIP_TEST_VORGEHEN.md
+/IOS_PIP_DEBUG_TEST_VORGEHEN.md
+/IOS_PIP_MINIMAL_DEBUG_ANALYSE.md
+/PLAYER_SUCHFELD_ANALYSE.md
+/STABLE_BUILDS.md
+/TECHNISCHER_STAND.md
+/WIEDERHERSTELLUNGSPROTOKOLL.md
+/backups/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release

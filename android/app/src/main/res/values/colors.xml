@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mytube_icon_background">#FDF8EA</color>
+    <color name="mytube_splash_background">#FDF8EA</color>
+    <color name="mytube_navy">#072646</color>
+    <color name="mytube_coral">#F24942</color>
+    <color name="mytube_turquoise">#19BEB5</color>
+</resources>
