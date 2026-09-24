@@ -25,7 +25,9 @@ The detailed platform/player split is documented in [docs/ARCHITECTURE.md](docs/
 ## Status
 
 Version: **1.0.1** (build **109**)
+
 BUILD HASH SHA256: 9A44EB2153759C8D90FDDCBE69EDA8D6AAA1C70F9408591D76F26A130A3C428F
+
 FINGERPRINT: 25:AA:BC:D3:AE:50:3F:52:D4:30:20:4B:B5:D5:E6:35:35:E1:25:83:66:47:63:0A:54:9B:69:96:B1:29:70:0C
 
 Android and iOS are the primary targets. The repository also contains Flutter-generated desktop and web scaffolding, but those platforms are not currently release targets and do not have feature parity.
