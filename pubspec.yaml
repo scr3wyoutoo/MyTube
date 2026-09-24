@@ -1,7 +1,7 @@
 name: flutter_browser_app
 description: "MyTube, a Flutter video and music browser for Android and iOS."
 publish_to: 'none'
-version: 1.0.1+105
+version: 1.0.1+109
 
 environment:
   sdk: ^3.11.0

@@ -4,6 +4,20 @@ All notable user-facing and repository changes are documented here.
 
 ## Unreleased
 
+- Prevented Android from applying the system screen timeout while an ordinary
+  Media3 video is playing or buffering with active playback intent.
+- Restored the normal screen timeout immediately when that video is paused,
+  stopped, completed, fails, or its native view is detached.
+- Added local, repository-safe Android release signing and produced the first
+  cryptographically signed `com.dev.mytube` release APK.
+- Raised the minimum supported iOS version from iOS 13 to iOS 15 across the
+  Xcode project, CocoaPods platform, and embedded Flutter framework metadata.
+- Changed the Android application ID, Android/Kotlin namespace, Apple bundle
+  identifiers, and desktop application identifiers to `com.dev.mytube`.
+- Kept playlist reordering compatible with older Flutter SDKs while suppressing
+  the Flutter 3.47-only deprecation diagnostic at the single affected callback.
+- Ensured asynchronous subtitle-loading failures remain inside their intended
+  fallback `try`/`catch` path.
 - Licensed MyTube's original source code and original project assets under
   Apache License 2.0.
 - Added project NOTICE, contribution licensing terms, and a direct-dependency

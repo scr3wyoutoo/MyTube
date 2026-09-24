@@ -537,7 +537,7 @@ class YouTubeExplodePlaybackService implements VideoPlaybackService {
         return const [];
       }
       _session = session;
-      return _loadSubtitles(session.client, videoId);
+      return await _loadSubtitles(session.client, videoId);
     } on Exception {
       return const [];
     }

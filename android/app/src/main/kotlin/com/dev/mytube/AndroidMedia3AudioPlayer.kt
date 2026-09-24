@@ -1,4 +1,4 @@
-package com.example.flutter_browser_app
+package com.dev.mytube
 
 import android.content.Context
 import android.os.Handler

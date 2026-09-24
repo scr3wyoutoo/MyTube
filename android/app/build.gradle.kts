@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -5,8 +8,33 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+val releaseKeystorePropertiesFile = rootProject.file("key.properties")
+val releaseKeystoreProperties = Properties()
+if (releaseKeystorePropertiesFile.isFile) {
+    FileInputStream(releaseKeystorePropertiesFile).use {
+        releaseKeystoreProperties.load(it)
+    }
+}
+
+val requiredReleaseSigningProperties = listOf(
+    "storeFile",
+    "storePassword",
+    "keyAlias",
+    "keyPassword",
+)
+val releaseSigningConfigured = releaseKeystorePropertiesFile.isFile &&
+    requiredReleaseSigningProperties.all {
+        !releaseKeystoreProperties.getProperty(it).isNullOrBlank()
+    }
+
+if (releaseKeystorePropertiesFile.isFile && !releaseSigningConfigured) {
+    throw GradleException(
+        "android/key.properties exists but is missing release signing values.",
+    )
+}
+
 android {
-    namespace = "com.example.flutter_browser_app"
+    namespace = "com.dev.mytube"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -20,25 +48,45 @@ android {
     }
 
     defaultConfig {
-        // Kept for upgrade compatibility with existing development installs.
-        // Replace this with an identifier you own before publishing to a store.
-        applicationId = "com.example.flutter_browser_app"
+        applicationId = "com.dev.mytube"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        if (releaseSigningConfigured) {
+            create("release") {
+                keyAlias = releaseKeystoreProperties.getProperty("keyAlias")
+                keyPassword = releaseKeystoreProperties.getProperty("keyPassword")
+                storeFile = file(releaseKeystoreProperties.getProperty("storeFile"))
+                storePassword = releaseKeystoreProperties.getProperty("storePassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // Production credentials are intentionally not stored here.
-            // Configure a private release signingConfig before distribution.
+            signingConfig = signingConfigs.findByName("release")
         }
     }
 }
 
 flutter {
     source = "../.."
+}
+
+tasks.configureEach {
+    if (name == "packageRelease" || name == "bundleRelease") {
+        doFirst {
+            if (!releaseSigningConfigured) {
+                throw GradleException(
+                    "Release signing is not configured. Create android/key.properties first.",
+                )
+            }
+        }
+    }
 }
 
 dependencies {

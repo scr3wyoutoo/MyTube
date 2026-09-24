@@ -1,4 +1,4 @@
-package com.example.flutter_browser_app
+package com.dev.mytube
 
 import android.app.PendingIntent
 import android.app.PictureInPictureParams
@@ -25,7 +25,7 @@ class MainActivity : AudioServiceActivity() {
     companion object {
         private const val CHANNEL = "flutter_browser_app/picture_in_picture"
         private const val ACTION_TOGGLE_PLAYBACK =
-            "com.example.flutter_browser_app.action.TOGGLE_PLAYBACK"
+            "com.dev.mytube.action.TOGGLE_PLAYBACK"
         private const val PLAYBACK_ACTION_REQUEST_CODE = 4101
     }
 

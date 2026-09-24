@@ -24,7 +24,9 @@ The detailed platform/player split is documented in [docs/ARCHITECTURE.md](docs/
 
 ## Status
 
-Version: **1.0.1** (build **105**)
+Version: **1.0.1** (build **109**)
+BUILD HASH SHA256: 9A44EB2153759C8D90FDDCBE69EDA8D6AAA1C70F9408591D76F26A130A3C428F
+FINGERPRINT: 25:AA:BC:D3:AE:50:3F:52:D4:30:20:4B:B5:D5:E6:35:35:E1:25:83:66:47:63:0A:54:9B:69:96:B1:29:70:0C
 
 Android and iOS are the primary targets. The repository also contains Flutter-generated desktop and web scaffolding, but those platforms are not currently release targets and do not have feature parity.
 
@@ -32,10 +34,15 @@ Android and iOS are the primary targets. The repository also contains Flutter-ge
 
 - A Flutter SDK compatible with Dart `^3.11.0`
 - Android Studio/Android SDK for Android builds
+- iOS 15 or newer for installation
 - macOS with Xcode and CocoaPods for iOS builds
 - Network access to YouTube endpoints
 
 ## Quick Start Android
+
+1. Download and install .apk on your phone: https://mega.nz/folder/2soBjZYB#ylHbp7duE3qymLXFb7lhZA
+
+OR
 
 - Download project to a folder
 - Open it as flutter-project in Android-Studio
@@ -71,6 +78,32 @@ flutter run \
 
 The same defines can be supplied to `flutter build apk` or `flutter build ios`. A value embedded with `--dart-define` can still be extracted from a distributed app. Restrict mobile API keys by app and API, or place requests behind a backend when a secret must remain confidential.
 
+## Android release signing
+
+Release artifacts must use a private key that is never committed. Create
+`android/key.properties` locally with these values:
+
+```properties
+storeFile=/absolute/private/path/mytube-release-key.p12
+storePassword=YOUR_STORE_PASSWORD
+keyAlias=mytube-release
+keyPassword=YOUR_KEY_PASSWORD
+```
+
+`android/key.properties`, `*.jks`, `*.keystore`, and `*.p12` are ignored by Git.
+When the local properties are present, Gradle signs the release APK with that
+key. A release build without complete signing data fails instead of silently
+producing an unsigned APK:
+
+```bash
+flutter build apk --release
+```
+
+Keep the keystore and its credentials in multiple secure offline backups. Every
+future update of the same Android application ID must be signed by the same key.
+The current MyTube release certificate has SHA-256 fingerprint
+`25:AA:BC:D3:AE:50:3F:52:D4:30:20:4B:B5:D5:E6:35:35:E1:25:83:66:47:63:0A:54:9B:69:96:B1:29:70:0C`.
+
 ## Validate changes
 
 ```bash
@@ -84,10 +117,12 @@ GitHub Actions runs formatting, analysis, and tests for pushes and pull requests
 
 ## Distribution checklist
 
-The checked-in application identifiers still use Flutter's `com.example` development namespace to preserve upgrade compatibility with existing test installs. Before a store release:
+The checked-in Android application ID and Apple bundle identifiers use
+`com.dev.mytube`. Before a store release:
 
-1. Replace the Android application ID and Apple bundle identifiers with identifiers you own.
-2. Configure Android release signing outside the repository.
+1. Confirm that `com.dev.mytube` is registered to the intended Play Console and
+   Apple Developer accounts.
+2. Keep the Android release key and its recovery credentials outside the repository.
 3. Configure the Apple development team, signing, capabilities, and App Store metadata in Xcode.
 4. Review platform privacy disclosures, third-party licenses, YouTube terms, and branding requirements.
 5. Run real-device regression tests for background audio, lock-screen controls, Bluetooth routing, PiP, live streams, autoplay, and crossfade.

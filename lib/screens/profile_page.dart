@@ -826,6 +826,9 @@ class _PlaylistsView extends StatelessWidget {
                               physics: const NeverScrollableScrollPhysics(),
                               buildDefaultDragHandles: false,
                               itemCount: playlist.videos.length,
+                              // Compatibility with Flutter versions from before
+                              // onReorderItem was introduced.
+                              // ignore: deprecated_member_use
                               onReorder: (oldIndex, newIndex) =>
                                   controller.reorderPlaylistVideo(
                                     playlist.id,

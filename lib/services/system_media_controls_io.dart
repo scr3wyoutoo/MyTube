@@ -43,8 +43,7 @@ class SystemMediaControls {
     _handler = await AudioService.init<_MediaKitAudioHandler>(
       builder: _MediaKitAudioHandler.new,
       config: const AudioServiceConfig(
-        androidNotificationChannelId:
-            'com.example.flutter_browser_app.playback',
+        androidNotificationChannelId: 'com.dev.mytube.playback',
         androidNotificationChannelName: 'MyTube Wiedergabe',
         androidNotificationChannelDescription:
             'Steuerung der laufenden Video- und Musikwiedergabe',

@@ -7,7 +7,7 @@ void main() {
 
   setUpAll(() {
     source = File(
-      'android/app/src/main/kotlin/com/example/flutter_browser_app/'
+      'android/app/src/main/kotlin/com/dev/mytube/'
       'AndroidMedia3AudioPlayer.kt',
     ).readAsStringSync();
   });

@@ -1,4 +1,4 @@
-package com.example.flutter_browser_app
+package com.dev.mytube
 
 import android.content.Context
 import android.graphics.SurfaceTexture
@@ -203,18 +203,24 @@ class AndroidMedia3VideoPlayer(
             created.setHandleAudioBecomingNoisy(true)
             attachedTextureView?.let(created::setVideoTextureView)
             player = created
+            updateKeepScreenOn(created)
         }
     }
 
     fun attachTextureView(view: TextureView) {
         if (attachedTextureView === view) return
-        attachedTextureView?.let { old -> player?.clearVideoTextureView(old) }
+        attachedTextureView?.let { old ->
+            old.keepScreenOn = false
+            player?.clearVideoTextureView(old)
+        }
         attachedTextureView = view
         player?.setVideoTextureView(view)
+        updateKeepScreenOn()
     }
 
     fun detachTextureView(view: TextureView) {
         if (attachedTextureView !== view) return
+        view.keepScreenOn = false
         player?.clearVideoTextureView(view)
         attachedTextureView = null
     }
@@ -260,6 +266,7 @@ class AndroidMedia3VideoPlayer(
 
     private fun sendState() {
         val current = player ?: return
+        updateKeepScreenOn(current)
         val nativeDuration = current.duration.takeIf { it != C.TIME_UNSET && it > 0 } ?: 0L
         val duration = if (expectedDurationMs > 0) expectedDurationMs else nativeDuration
         val playbackRequested =
@@ -282,6 +289,15 @@ class AndroidMedia3VideoPlayer(
         )
     }
 
+    private fun updateKeepScreenOn(current: Player? = player) {
+        attachedTextureView?.keepScreenOn =
+            current != null &&
+                current.playWhenReady &&
+                current.playbackState != Player.STATE_ENDED &&
+                current.mediaItemCount > 0 &&
+                current.playerError == null
+    }
+
     private fun scheduleTicker() {
         if (tickerRunning || released) return
         tickerRunning = true
@@ -301,7 +317,10 @@ class AndroidMedia3VideoPlayer(
         released = true
         handler.removeCallbacks(positionTicker)
         tickerRunning = false
-        attachedTextureView?.let { view -> player?.clearVideoTextureView(view) }
+        attachedTextureView?.let { view ->
+            view.keepScreenOn = false
+            player?.clearVideoTextureView(view)
+        }
         attachedTextureView = null
         player?.removeListener(this)
         player?.release()
