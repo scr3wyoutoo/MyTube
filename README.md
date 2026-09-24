@@ -42,7 +42,7 @@ Android and iOS are the primary targets. The repository also contains Flutter-ge
 
 1. Download and install .apk on your phone: https://mega.nz/folder/2soBjZYB#ylHbp7duE3qymLXFb7lhZA
 
-OR
+**OR**
 
 - Download project to a folder
 - Open it as flutter-project in Android-Studio
